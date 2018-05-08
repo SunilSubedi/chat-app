@@ -16,7 +16,25 @@ io.on('connection', (socket)=>{
              text:message.text,
              created_at: new Date().getTime(),
 
-         })
+         });
+
+        // socket.broadcast.emit('newMessage',{
+        //     from:message.from,
+        //     text:message.text,
+        //     created_at: new Date().getTime(),
+        // });
+    });
+
+    socket.emit('newMessage',{
+        from:'Admin',
+        text:'Welcome to chat app',
+        created_at: new Date().getTime(),
+    });
+
+    socket.broadcast.emit('newMessage',{
+        from:'Admin',
+        text:'New User Connected',
+        created_at: new Date().getTime(),
     });
     socket.on('disconnect',()=>{
         console.log('Connection close');
