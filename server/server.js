@@ -10,9 +10,18 @@ var server = http.createServer(app);
 var io = socketIO(server);
 io.on('connection', (socket)=>{
     console.log('New user connected');
+    socket.on('createMessage',(message) => {
+         io.emit('newMessage',{
+             from:message.from,
+             text:message.text,
+             created_at: new Date().getTime(),
+
+         })
+    });
     socket.on('disconnect',()=>{
         console.log('Connection close');
       });
+
 });
 
 
